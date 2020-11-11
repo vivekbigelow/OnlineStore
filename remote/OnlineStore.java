@@ -7,8 +7,8 @@ import java.rmi.registry.*;
 import store.Item;
 import store.ItemContainer;
 import store.Store;
-import account.AccountManager;
-import account.AccountManagerImpl;
+
+
 
 public class OnlineStore{
     
@@ -30,9 +30,9 @@ public class OnlineStore{
         store.addItem(gameContainer);
 
         try{
-            AccountManager accountManager = new AccountManagerImpl(store);
+            
             String name ="//in-csci-rrpc06:2323/Remote";
-            Naming.rebind(name,accountManager);
+            //Naming.rebind(name,accountManager);
 
             System.out.println("Server is ready");
         }catch (Exception e){

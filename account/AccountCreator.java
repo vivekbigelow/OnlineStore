@@ -6,7 +6,7 @@ import store.Cart;
 public class AccountCreator{
     Store store;
 
-    AccountCreator(Store store){
+    public AccountCreator(Store store){
         this.store = store;
     }
 

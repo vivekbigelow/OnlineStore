@@ -56,8 +56,7 @@ CLASSES = \
 	account/User.java\
 	account/Admin.java\
 	account/AccountCreator.java\
-	account/AccountManager.java\
-	account/AccountManagerImpl.java\
+	OnlineStoreModel/OnlineStoreModel.java\
 	remote/OnlineStore.java\
 	client/Client.java 
 
@@ -93,7 +92,6 @@ clean:
 	$(RM) account/User.class
 	$(RM) account/Admin.class
 	$(RM) account/AccountCreator.class
-	$(RM) account/AccountManager.class
-	$(RM) account/AccountManagerImpl.class
+	$(RM) OnlineStoreModel/OnlineStoreModel.class
 	$(RM) remote/OnlineStore.class
 	$(RM) client/Client.class
