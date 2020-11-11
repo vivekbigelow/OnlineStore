@@ -18,17 +18,33 @@ public class Store implements Serializable {
         return this.items;
     }
 
-    public void browseItems(){
+    public ItemContainer getItem(String itemCode){
+        ItemContainer container = null;
+        for(int i = 0; i < this.items.size(); i++){
+            ItemContainer stockContainer = this.items.get(i);
+            Item stockItem = stockContainer.getItem();
+            if(stockItem.getItemCode().equals(itemCode)){
+                container = stockContainer;
+            }
+        }
+
+        return container;
+    }
+
+    public String browseItems(){
+        String result = "";
         if(this.items.size() == 0){
-            System.out.println("No items in stock");
+            result = "No items in stock";
         }else{
             for (int i = 0; i < this.items.size(); i++){
                 ItemContainer stockItemContainer = this.items.get(i);
                 Item stockItem = stockItemContainer.getItem();
                 int quantity = stockItemContainer.getQuantity();
-                System.out.println("Item: "+stockItem.getName()+" Quantity: "+quantity+" Code: "+stockItem.getItemCode());
+                result = result+"Item: "+stockItem.getName()+" Quantity: "+quantity+" Cost "+stockItem.getCost()+" Code: "+stockItem.getItemCode()+"\n";
             } 
         }
+
+        return result;
     }
 
     public void addItem(ItemContainer item){
@@ -48,10 +64,10 @@ public class Store implements Serializable {
 
     }
 
-    public void removeItem(Item item, int quantity){
+    public void removeItem(String itemCode, int quantity){
         for (int i = 0; i < this.items.size(); i++){
             Item stockItem = this.items.get(i).getItem();
-            if (stockItem.getItemCode().equals(item.getItemCode())){
+            if (stockItem.getItemCode().equals(itemCode)){
                 try{
                     this.items.get(i).subtractItems(quantity);
                 }catch (Exception e){
@@ -60,5 +76,18 @@ public class Store implements Serializable {
                
             }
         }
+    }
+
+    public Boolean validItemCode(String code){
+        Boolean result = false;
+        for(int i = 0; i < this.items.size(); i++){
+            ItemContainer container = this.items.get(i);
+            Item item = container.getItem();
+            String itemCode = item.getItemCode();
+            if(itemCode.equals(code)){
+                result = true;
+            }
+        }
+        return result;
     }
 }

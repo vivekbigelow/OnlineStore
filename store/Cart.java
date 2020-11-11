@@ -30,6 +30,42 @@ public class Cart implements Serializable {
         return this.total;
     }
 
+    public String view(){
+        String result = "";
+        if (this.items.size() > 0){
+            for (int i = 0; i < this.items.size(); i++){
+                ItemContainer container = this.items.get(i);
+                Item item = container.getItem();
+                int quantity = container.getQuantity();
+                String code = item.getItemCode();
+                result = result+"Item: "+item.getName()+" Quantity: "+quantity+" Code: "+code+"\n";
+            }
+        }else{
+            result = "Your cart is empty";
+        }
+        this.calculateTotal();
+        return result+"\nTotal cost "+this.getTotal();
+    }
+
+    public void addItem(Item item, int quantity){
+        Boolean added = false;
+        //in case the item is already in the store
+        for (int i = 0; i < this.items.size(); i++){
+            Item cartItem = this.items.get(i).getItem();
+            String cartCode = cartItem.getItemCode();
+            if (cartCode.equals(item.getItemCode())){
+                this.items.get(i).addMultipleItems(quantity);
+                added = true;
+            }
+        }
+        //if the item is new
+        if(!added){
+            ItemContainer newItem = new ItemContainer(item, quantity);
+            items.add(newItem);
+        }
+
+    }
+
     public void removeItem(String itemCode){
         int removeIndex = -1;
         for(int i = 0; i < this.items.size(); i++){
@@ -46,6 +82,10 @@ public class Cart implements Serializable {
         }else{
             System.out.println("Item not in cart");
         }
+    }
+
+    public void empty(){
+        this.items.clear();
     }
 
     public void calculateTotal(){
